@@ -95,7 +95,6 @@ class ChoosePartition:
         size = bd['size'] if bd['size'] is not None else ""
         self.screen.addstr(2 + i, 2, bd['name'] + " " + model + " " + size)
 
-    # Unused var is for future uses maybe?
     def _select_print(self, x):
         self.screen.clear()
         self.screen.border(0)
@@ -103,9 +102,11 @@ class ChoosePartition:
         self.screen.addstr(2, 2, self.help_message[1])
 
         partn = 0
+        i = 0
         if 'blockdevices' not in self.blkinfo:
             raise Exception('Wrong lsblk json format. No field "blockdevices"')
-        for i, bd in enumerate(self.blkinfo['blockdevices']):
+        for bd in self.blkinfo['blockdevices']:
+            i += 1
             bd_selected = False
             bd_i = i
             self._select_print_block_device(bd, bd_i)
@@ -120,7 +121,7 @@ class ChoosePartition:
                 self._select_print_part(part, is_selected, i)
             if bd_selected:
                 self.screen.addstr(2 + bd_i, 1, ">")
-        self.screen.addstr(2 + len(self.blkinfo['blockdevices']) + 2, 4, self.message)
+        self.screen.addstr(2 + i + 2, 4, self.message)
 
     def _eject_all(self):
         blk = None
