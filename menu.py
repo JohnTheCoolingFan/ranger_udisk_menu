@@ -63,8 +63,7 @@ class ChoosePartition:
         if not ('mountpoint' in part and
                 'name' in part and
                 'size' in part):
-            raise Exception('Wrong lsblk json format.' +
-                            'No mountpoint, name or size in the partition')
+            raise Exception('Wrong lsblk json format. No mountpoint, name or size in the partition')
         label = ""
         label_fields = ['label', 'partlabel', 'parttypename', 'fstype']
         for f in label_fields:
@@ -90,8 +89,7 @@ class ChoosePartition:
         if not ('model' in bd and
                 'size' in bd or
                 'name' in bd):
-            raise Exception('Wrong lsblk json format. ' +
-                            'No model, size or name in blockdevice')
+            raise Exception('Wrong lsblk json format. No model, size or name in blockdevice')
 
         model = bd['model'] if bd['model'] is not None else ""
         size = bd['size'] if bd['size'] is not None else ""
