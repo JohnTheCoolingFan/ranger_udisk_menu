@@ -7,8 +7,8 @@
 
 import curses
 import curses.ascii
-import subprocess
 import json
+import subprocess
 
 
 class ChoosePartition:
