@@ -178,7 +178,7 @@ class ChoosePartition:
             r = (r.stdout.decode(encoding="utf-8") +
                  r.stderr.decode(encoding="utf-8"))
             self.message = r
-        except Exception as e:
+        except subprocess.CalledProcessError as e:
             self.message = cmd + " error: " + r + str(e)
         self._read_partitions()
 
