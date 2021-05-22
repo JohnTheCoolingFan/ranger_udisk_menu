@@ -23,6 +23,11 @@ class ChoosePartition:
     message = ""
 
     def __init__(self):
+        self.newmethod209()
+        self.selected_partn = 1
+        self._read_partitions()
+
+    def newmethod209(self):
         self.screen = curses.initscr()
         curses.start_color()
         curses.curs_set(0)
@@ -30,8 +35,6 @@ class ChoosePartition:
         curses.cbreak()
         self.screen.keypad(True)
         curses.init_pair(1, curses.COLOR_BLACK, curses.COLOR_WHITE)
-        self.selected_partn = 1
-        self._read_partitions()
 
     def _read_partitions(self):
         r = subprocess.check_output(['lsblk', '--all', '--json', '-O'])
