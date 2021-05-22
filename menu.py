@@ -23,11 +23,11 @@ class ChoosePartition:
     message = ""
 
     def __init__(self):
-        self.newmethod209()
+        self._init_curses()
         self.selected_partn = 1
         self._read_partitions()
 
-    def newmethod209(self):
+    def _init_curses(self):
         self.screen = curses.initscr()
         curses.start_color()
         curses.curs_set(0)
