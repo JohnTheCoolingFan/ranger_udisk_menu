@@ -40,8 +40,7 @@ class ChoosePartition:
         for bd in self.blkinfo['blockdevices']:
             if 'children' not in bd:
                 continue
-            for part in bd['children']:
-                partn += 1
+            partn += len(bd['children'])
 
         self.partn = partn
         if self.selected_partn > self.partn:
