@@ -140,32 +140,32 @@ class ChoosePartition:
 
     def select(self):
         sel = None
-        x = 0
+        key = 0
         # quit when pressed `q` or `Esc` or `Ctrl+g`
-        while x not in (ord('q'), curses.ascii.ESC, curses.ascii.BEL):
-            self._select_print(x)
-            x = self.screen.getch()
-            if x in (ord('j'), curses.ascii.SO, curses.KEY_DOWN):
+        while key not in (ord('q'), curses.ascii.ESC, curses.ascii.BEL):
+            self._select_print(key)
+            key = self.screen.getch()
+            if key in (ord('j'), curses.ascii.SO, curses.KEY_DOWN):
                 # down
                 self.selected_partn += 1
                 if self.selected_partn > self.partn:
                     self.selected_partn = self.partn
-            elif x in (ord('k'), curses.ascii.DLE, curses.KEY_UP):
+            elif key in (ord('k'), curses.ascii.DLE, curses.KEY_UP):
                 # up
                 self.selected_partn -= 1
                 if self.selected_partn <= 0:
                     self.selected_partn = 1
-            elif x == ord('e'):
+            elif key == ord('e'):
                 self._eject_all()
-            elif x == ord('m'):
+            elif key == ord('m'):
                 sel = self._get_part_by_partn()
                 if sel is not None:
                     self.mount(sel['path'])
-            elif x == ord('u'):
+            elif key == ord('u'):
                 sel = self._get_part_by_partn()
                 if sel is not None:
                     self.unmount(sel['path'])
-            elif x == ord('g') or x == ord('r'):
+            elif key == ord('g') or key == ord('r'):
                 self._read_partitions()
         curses.endwin()
 
