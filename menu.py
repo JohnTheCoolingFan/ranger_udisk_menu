@@ -156,7 +156,7 @@ class ChoosePartition:
                 if self.selected_partn <= 0:
                     self.selected_partn = 1
             elif x == ord('e'):
-                sel = self._eject_all()
+                self._eject_all()
             elif x == ord('m'):
                 sel = self._get_part_by_partn()
                 if sel is not None:
