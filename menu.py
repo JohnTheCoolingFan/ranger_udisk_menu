@@ -95,6 +95,7 @@ class ChoosePartition:
         size = bd['size'] if bd['size'] is not None else ""
         self.screen.addstr(2 + i, 2, bd['name'] + " " + model + " " + size)
 
+    # Unused variable is for future uses maybe?
     def _select_print(self, x):
         self.screen.clear()
         self.screen.border(0)
