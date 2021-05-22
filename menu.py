@@ -172,8 +172,9 @@ class ChoosePartition:
     def _udisk_mount_unmount(self, cmd, dev):
         r = ""
         try:
-            r = subprocess.run(
-                ['udisksctl', cmd, '-b', dev], capture_output=True)
+            r = subprocess.run(['udisksctl', cmd, '-b', dev],
+                               capture_output=True,
+                               check=True)
             r = (r.stdout.decode(encoding="utf-8") +
                  r.stderr.decode(encoding="utf-8"))
             self.message = r
