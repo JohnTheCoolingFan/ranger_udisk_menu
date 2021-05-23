@@ -38,6 +38,7 @@ class ChoosePartition:
     def _read_partitions(self):
         r = subprocess.check_output(['lsblk', '--all', '--json', '-O'])
         self.blkinfo = json.loads(r)
+
         partn = 0
         for bd in self.blkinfo['blockdevices']:
             if 'children' in bd:
@@ -64,6 +65,7 @@ class ChoosePartition:
                 'name' in part and
                 'size' in part):
             raise Exception('Wrong lsblk json format. No mountpoint, name or size in the partition')
+
         label = 'None'
         label_fields = ['label', 'partlabel', 'parttypename', 'fstype']
         for f in label_fields:
