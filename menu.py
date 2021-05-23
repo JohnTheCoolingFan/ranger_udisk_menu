@@ -2,6 +2,7 @@
 # coding: utf-8
 # License: The MIT License
 # Author: Alexander Lutsai <sl_ru@live.com>
+# Modified by: JohnTheCoolingFan <https://github.com/JohnTheCoolingFan>
 # Year: 2021
 # Description: This script draws menu to choose, mount and unmount drives
 
