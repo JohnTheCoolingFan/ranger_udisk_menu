@@ -136,16 +136,14 @@ class ChoosePartition:
         blk = None
         partn = 0
         for bd in self.blkinfo['blockdevices']:
-            if 'children' not in bd:
-                continue
-            for part in bd['children']:
-                partn += 1
-                if self.selected_partn == partn:
-                    blk = bd
-        if blk is None:
-            return
-        for part in blk['children']:
-            self.unmount(part['path'])
+            if 'children' in bd:
+                for part in bd['children']:
+                    partn += 1
+                    if self.selected_partn == partn:
+                        blk = bd
+        if blk is not None:
+            for part in blk['children']:
+                self.unmount(part['path'])
 
     # Main entry point
     def select(self):
