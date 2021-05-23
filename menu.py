@@ -40,9 +40,8 @@ class ChoosePartition:
         self.blkinfo = json.loads(r)
         partn = 0
         for bd in self.blkinfo['blockdevices']:
-            if 'children' not in bd:
-                continue
-            partn += len(bd['children'])
+            if 'children' in bd:
+                partn += len(bd['children'])
 
         self.partn = partn
         if self.selected_partn > self.partn:
@@ -53,12 +52,11 @@ class ChoosePartition:
     def _get_part_by_partn(self):
         partn = 0
         for bd in self.blkinfo['blockdevices']:
-            if 'children' not in bd:
-                continue
-            for part in bd['children']:
-                partn += 1
-                if self.selected_partn == partn:
-                    return part
+            if 'children' in bd:
+                for part in bd['children']:
+                    partn += 1
+                    if self.selected_partn == partn:
+                        return part
         return None
 
     def _select_print_part(self, part, is_selected, i):
@@ -66,23 +64,22 @@ class ChoosePartition:
                 'name' in part and
                 'size' in part):
             raise Exception('Wrong lsblk json format. No mountpoint, name or size in the partition')
-        label = ""
+        label = 'None'
         label_fields = ['label', 'partlabel', 'parttypename', 'fstype']
         for f in label_fields:
-            if f not in part:
-                continue
-            if part[f] is not None:
-                label = part[f]
-                break
+            if f in part:
+                if part[f] is not None:
+                    label = part[f]
+                    break
 
         mp = "Not mounted"
         if part['mountpoint'] is not None:
             mp = part['mountpoint']
 
         s = "{name:<12} {size:<8} {label:<16} {mp}".format(
-            name=part['name'] if part['name'] is not None else "None",
-            label=label if label is not None else "None",
-            size=part['size'] if part['size'] is not None else "None",
+            name=str(part['name']),
+            label=label,
+            size=str(part['size']),
             mp=mp
         )
         self.screen.addstr(2 + i, 4, s, curses.color_pair(is_selected))
