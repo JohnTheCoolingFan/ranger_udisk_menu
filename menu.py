@@ -103,7 +103,7 @@ class ChoosePartition:
         self.screen.addstr(2 + i, 2, bd['name'] + " " + model + " " + size)
 
     # Print partitions/blockdevices. Also check if they are selected.
-    def _select_print(self, key):
+    def _select_print(self, key): #pylint: disable=unused-argument
         # Unused argument is for future uses maybe?
         self.screen.clear()
         self.screen.border(0)
