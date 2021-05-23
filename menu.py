@@ -40,7 +40,7 @@ class ChoosePartition:
     # Read data from lsblk
     def _read_partitions(self):
         r = subprocess.check_output(['lsblk', '--all', '--json',
-                                     '--output', 'NAME,MODEL,SIZE,LABEL,PARTLABEL,FSTYPE,MOUNTPOINT,PARTTYPENAME' ])
+                                     '--output', 'NAME,MODEL,SIZE,LABEL,PARTLABEL,FSTYPE,MOUNTPOINT,PARTTYPENAME,PATH'])
         self.blkinfo = json.loads(r)
 
         partn = 0
