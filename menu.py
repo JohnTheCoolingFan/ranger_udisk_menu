@@ -155,14 +155,10 @@ class ChoosePartition:
             key = self.screen.getch()
             if key in (ord('j'), curses.ascii.SO, curses.KEY_DOWN):
                 # down
-                self.selected_partn += 1
-                if self.selected_partn > self.partn:
-                    self.selected_partn = self.partn
+                self.selected_partn = min(self.selected_partn+1, self.partn)
             elif key in (ord('k'), curses.ascii.DLE, curses.KEY_UP):
                 # up
-                self.selected_partn -= 1
-                if self.selected_partn <= 0:
-                    self.selected_partn = 1
+                self.selected_partn = max(self.selected_partn-1, 1)
             elif key == ord('e'):
                 self._eject_all()
             elif key == ord('m'):
