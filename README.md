@@ -16,16 +16,16 @@ cd ~/.config/ranger
 git clone https://github.com/SL-RU/ranger_udisk_menu
 ```
 
-Then you need to add to `~/.config/ranger/commands.py` line: 
+Then you need to add this line to `~/.config/ranger/commands.py`: 
 
 ```Python3
 from ranger_udisk_menu.mounter import mount
 ```
 
-Thats all
+That's all
 
 # How to use
-Enter in ranger `:mount`, than will be shown menu. In this menu you can press:
+Menu is shwon using `:mount` command. Controls are such:
 
 - `j` or `arrow down` or `Ctrl+n` to move selection down
 - `k` or `arrow up` or `Ctrl+p` to move selection up
