@@ -147,8 +147,8 @@ class ChoosePartition:
 
     # Main entry point
     def select(self):
-        sel = None
-        key = 0
+        sel = None # Selected partition
+        key = 0    # Pressed key
         # quit when pressed `q` or `Esc` or `Ctrl+g`
         while key not in (ord('q'), curses.ascii.ESC, curses.ascii.BEL):
             self._select_print(key)
