@@ -121,8 +121,7 @@ class ChoosePartition:
                 i += 1
                 partn += 1
                 is_selected = 0 if self.selected_partn != partn else 1
-                if is_selected:
-                    bd_selected = True
+                bd_selected = bool(is_selected)
                 self._select_print_part(part, is_selected, i)
             if bd_selected:
                 self.screen.addstr(2 + bd_i, 1, ">")
