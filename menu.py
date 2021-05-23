@@ -180,9 +180,7 @@ class ChoosePartition:
             r = subprocess.run(['udisksctl', cmd, '-b', dev],
                                capture_output=True,
                                check=True)
-            r = (r.stdout.decode(encoding="utf-8") +
-                 r.stderr.decode(encoding="utf-8"))
-            self.message = r
+            self.message = r.stdout.decode(encoding='utf-8') + r.stderr.decode(encoding='utf-8')
         except subprocess.CalledProcessError as e:
             self.message = cmd + " error: " + r + str(e)
         self._read_partitions()
