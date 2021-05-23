@@ -90,8 +90,8 @@ class ChoosePartition:
                 'name' in bd):
             raise Exception('Wrong lsblk json format. No model, size or name in blockdevice')
 
-        model = bd['model'] if bd['model'] is not None else ""
-        size = bd['size'] if bd['size'] is not None else ""
+        model = bd['model'] or ""
+        size = bd['size'] or ""
         self.screen.addstr(2 + i, 2, bd['name'] + " " + model + " " + size)
 
     # Unused variable is for future uses maybe?
