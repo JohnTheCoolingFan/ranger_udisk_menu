@@ -103,24 +103,25 @@ class ChoosePartition:
 
         partn = 0
         i = 0
-        if 'blockdevices' not in self.blkinfo:
-            raise Exception('Wrong lsblk json format. No field "blockdevices"')
-        for bd in self.blkinfo['blockdevices']:
-            i += 1
-            bd_selected = False
-            bd_i = i
-            self._select_print_block_device(bd, bd_i)
-            if 'children' not in bd:
-                continue
-            for part in bd['children']:
+        if 'blockdevices' in self.blkinfo:
+            for bd in self.blkinfo['blockdevices']:
                 i += 1
-                partn += 1
-                is_selected = 0 if self.selected_partn != partn else 1
-                bd_selected = bool(is_selected)
-                self._select_print_part(part, is_selected, i)
-            if bd_selected:
-                self.screen.addstr(2 + bd_i, 1, ">")
-        self.screen.addstr(2 + i + 2, 4, self.message)
+                bd_selected = False
+                bd_i = i
+                self._select_print_block_device(bd, bd_i)
+                if 'children' not in bd:
+                    continue
+                for part in bd['children']:
+                    i += 1
+                    partn += 1
+                    is_selected = 0 if self.selected_partn != partn else 1
+                    bd_selected = bool(is_selected)
+                    self._select_print_part(part, is_selected, i)
+                if bd_selected:
+                    self.screen.addstr(2 + bd_i, 1, ">")
+            self.screen.addstr(2 + i + 2, 4, self.message)
+        else:
+            raise Exception('Wrong lsblk json format. No field "blockdevices"')
 
     def _eject_all(self):
         blk = None
