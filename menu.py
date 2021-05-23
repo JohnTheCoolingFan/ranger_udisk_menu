@@ -182,7 +182,8 @@ class ChoosePartition:
                                check=True)
             self.message = r.stdout.decode(encoding='utf-8') + r.stderr.decode(encoding='utf-8')
         except subprocess.CalledProcessError as e:
-            self.message = cmd + " error: " + r + str(e)
+            #self.message = cmd + " error: " + r + str(e) + e.stderr.decode('utf-8')
+            self.message = e.stderr.decode('utf-8')
         self._read_partitions()
 
     # Unmount
