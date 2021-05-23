@@ -17,9 +17,7 @@ class ChoosePartition:
     screen = None
     selected_partn = 1
     partn = 1
-    help_message = [("Press 'm' to mount, " +
-                     "'u' to unmount, " +
-                     "'g' to refresh"),
+    help_message = ["Press 'm' to mount, 'u' to unmount, 'g' to refresh",
                     "  and 'e' to unmount the whole drive"]
     message = ""
 
