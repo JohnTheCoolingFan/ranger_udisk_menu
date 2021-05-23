@@ -21,11 +21,13 @@ class ChoosePartition:
                     "  and 'e' to unmount the whole drive"]
     message = ""
 
+    # Init ChoosePartition object
     def __init__(self):
         self._init_curses()
         self.selected_partn = 1
         self._read_partitions()
 
+    # Init curses screen/window
     def _init_curses(self):
         self.screen = curses.initscr()
         curses.start_color()
@@ -35,6 +37,7 @@ class ChoosePartition:
         self.screen.keypad(True)
         curses.init_pair(1, curses.COLOR_BLACK, curses.COLOR_WHITE)
 
+    # Read data from lsblk
     def _read_partitions(self):
         r = subprocess.check_output(['lsblk', '--all', '--json', '-O'])
         self.blkinfo = json.loads(r)
@@ -50,6 +53,7 @@ class ChoosePartition:
         if self.selected_partn <= 0:
             self.selected_partn = 1
 
+    # Get partition by partition number/index
     def _get_part_by_partn(self):
         partn = 0
         for bd in self.blkinfo['blockdevices']:
@@ -60,6 +64,7 @@ class ChoosePartition:
                         return part
         return None
 
+    # Print partition
     def _select_print_part(self, part, is_selected, i):
         if not ('mountpoint' in part and
                 'name' in part and
@@ -86,6 +91,7 @@ class ChoosePartition:
         )
         self.screen.addstr(2 + i, 4, s, curses.color_pair(is_selected))
 
+    # Print block device
     def _select_print_block_device(self, bd, i):
         if not ('model' in bd and
                 'size' in bd or
@@ -96,8 +102,9 @@ class ChoosePartition:
         size = bd['size'] or ""
         self.screen.addstr(2 + i, 2, bd['name'] + " " + model + " " + size)
 
-    # Unused variable is for future uses maybe?
-    def _select_print(self, x):
+    # Print partitions/blockdevices. Also check if they are selected.
+    def _select_print(self, key):
+        # Unused argument is for future uses maybe?
         self.screen.clear()
         self.screen.border(0)
         self.screen.addstr(1, 2, self.help_message[0])
@@ -124,6 +131,7 @@ class ChoosePartition:
         else:
             raise Exception('Wrong lsblk json format. No field "blockdevices"')
 
+    # Unmount all partitions
     def _eject_all(self):
         blk = None
         partn = 0
@@ -139,6 +147,7 @@ class ChoosePartition:
         for part in blk['children']:
             self.unmount(part['path'])
 
+    # Main entry point
     def select(self):
         sel = None
         key = 0
@@ -170,6 +179,7 @@ class ChoosePartition:
                 self._read_partitions()
         curses.endwin()
 
+    # Mount/unmount
     def _udisk_mount_unmount(self, cmd, dev):
         r = ""
         try:
@@ -183,9 +193,11 @@ class ChoosePartition:
             self.message = cmd + " error: " + r + str(e)
         self._read_partitions()
 
+    # Unmount
     def unmount(self, dev):
         self._udisk_mount_unmount("unmount", dev)
 
+    # Mount
     def mount(self, dev):
         self._udisk_mount_unmount("mount", dev)
 
