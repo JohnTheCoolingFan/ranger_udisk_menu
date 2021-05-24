@@ -128,7 +128,7 @@ class ChoosePartition:
                         self._select_print_part(part, int(is_selected), i)
                     if bd_selected:
                         self.screen.addstr(2 + bd_i, 1, ">")
-            self.screen.addstr(2 + i + 2, 4, self.message)
+            self.screen.addstr(4 + i, 4, self.message)
         else:
             raise Exception('Wrong lsblk json format. No field "blockdevices"')
 
