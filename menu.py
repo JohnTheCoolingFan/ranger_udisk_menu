@@ -13,7 +13,6 @@ import subprocess
 
 
 class ChoosePartition:
-    blkinfo: str = None
     screen = None
     selected_partn = 1
     partn = 1
